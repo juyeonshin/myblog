@@ -1,6 +1,7 @@
 {% extends 'base.html' %} 
 {% load static %}
 {% block content %} 
+{% include 'shared/_navbar.html'%}
 <div class="container">
      <h1>글 목록입니다.</h1> 
      <a href="{% url 'posts:new' %}" class="btn btn-primary">글 작성하기</a>

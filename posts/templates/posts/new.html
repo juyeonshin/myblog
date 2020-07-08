@@ -1,5 +1,6 @@
 {% extends 'base.html' %} 
 {% block content %} 
+{% include 'shared/_navbar.html'%}
 <div class="container">
      <h1> 새로운 글 작성하기 </h1> 
      <form action="{% url 'posts:create' %}" method="POST">
