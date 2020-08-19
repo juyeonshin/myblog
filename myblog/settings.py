@@ -37,8 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
     'introduction',
     'posts',
+
+    #allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount', 
+
+    #providers
+    'allauth.socialaccount.providers.google'
 ]
 
 MIDDLEWARE = [
@@ -123,3 +133,14 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR, 'myblog', 'static')
 ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'myblog', 'media')
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend', 
+]
+SITE_ID=1 
+LOGIN_REDIRECT_URL = '/'
+#로그인해서 들어가는 화면 설정해주는 url#
