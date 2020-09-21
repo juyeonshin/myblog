@@ -1,18 +1,32 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .models import Post, Comment, Like
+from .forms import PostForm
 
 def new(request):
     return render(request, 'posts/new.html')
 
 def create(request):
-    if request.method == "POST":
-        title = request.POST.get('title')
-        content = request.POST.get('content')
-        image = request.FILES.get('image')
-        user= request.user
-        Post.objects.create(title=title,content=content, image=image, user=user)
-        return redirect('posts:main')
+    if request.method == 'POST': # method가 post일때
+        form = PostForm(request.POST, request.FILES) # form 에 PostForm 할당
+        if form.is_valid(): # form 유효성 검증
+            form.save(user= request.user) # 저장
+            return redirect('posts:main') # 다시 main으로
+    else:
+        form = PostForm() # 빈 form 열기
+    return render(request, 'posts/new.html',{'form' :form})
+
+#  @login_required
+# def create(request):
+#     if request.method == "POST":
+#         form = PostForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save(user = request.user)
+#             return redirect('posts:main')
+#     else:
+#         form = PostForm()
+#     return render(request, 'posts/new.html', {'form': form})
 
 def main(request):
     posts=Post.objects.all().order_by('-created_at')

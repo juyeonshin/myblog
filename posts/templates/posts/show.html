@@ -13,15 +13,16 @@
 	 <h3> 작성자: {{post.user.last_name}} {{post.user.first_name}}</h3><br>
 	{% else %}
 	 <h3> 작성자: {{post.user}}</h3><br>
+	 
 	{% endif %}
 {% else %}
 	<h3> 작성자: 알 수 없음</h3><br>
 {% endif %}
-
+</br>
 {% if post.image %}
 	 <img src ="{{ post.image.url }}">
 {%  endif %}
-
+</br>
 <a href="{% url 'posts:post_like' post.id %}?redirect_to=show">
     {% if user in post.like_user_set.all %}
         <i class="fas fa-heart"></i>
