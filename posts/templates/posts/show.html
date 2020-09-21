@@ -22,6 +22,14 @@
 	 <img src ="{{ post.image.url }}">
 {%  endif %}
 
+<a href="{% url 'posts:post_like' post.id %}?redirect_to=show">
+    {% if user in post.like_user_set.all %}
+        <i class="fas fa-heart"></i>
+    {% else %}
+        <i class="far fa-heart"></i>
+    {% endif %}
+</a>
+
 {% if post.user == user %}
 	<a href="{% url 'posts:update' post.pk %}" class="btn btn-primary"> 수정하기 </a>
  	<a href="{% url 'posts:delete' post.pk %}" class="btn btn-danger"> 삭제하기</a> 
